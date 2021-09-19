@@ -7,6 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # User.create!(email: "test@example.com", password: "password")
 # puts "ユーザの初期データインポートに成功しました"
+email = "test@example.com"
+password = "password"
+
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE users RESTART IDENTITY CASCADE")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE foods RESTART IDENTITY CASCADE")
 
@@ -14,8 +17,13 @@ user1 = User.create!(email: "satou@example.com", password: "password")
 user2 = User.create!(email: "suzuki@example.com", password: "password")
 user3 = User.create!(email: "tanaka@example.com", password: "password")
 
-Food.create!(name: "沖縄そば", content: "そば粉が入ってない小麦粉のみで作られたそば", user_id: user1.id)
-Food.create!(name: "ゴーヤーチャンプルー", content: "ゴーヤーがメイン、豆腐、スパム、卵を炒めた料理", user_id: user2.id)
-Food.create!(name: "タコス", content: "メキシコ料理が入ってきた。トルティーヤと肉、トマト、レタスを包んだ軽食", user_id: user3.id)
+user1.foods.create!(name: "沖縄そば", content: "そば粉が入ってないそば")
+user2.foods.create!(name: "ゴーヤーチャンプルー", content: "ゴーヤーと豆腐、スパム、卵を炒めた料理")
+user3.foods.create!(name: "タコス", content: "タコスミート、トマト、レタスをトルティーヤで包んだもの")
+user1.foods.create!(name: "てびち", content: "豚足のブヨブヨしたやつ")
+user3.foods.create!(name: "島豆腐", content: "内容よくわかってない")
+user2.foods.create!(name: "紅芋タルト", content: "紅芋で作ったタルト")
+
+User.create!(email: email, password: password)
 
 puts "初期データの投入に成功しました！"
